@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="de" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<title>Olga Skrypnyk — Beauty Studio | Wimpernverlängerung & Augenbrauen</title>
+<meta name="description" content="Olga Skrypnyk Beauty Studio — professionelle Wimpernverlängerung (Klassik, Volume, Mega Volume), Wimpernlifting, Browlifting & Augenbrauen. Natürlich, präzise, individuell.">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F0E6;
+    --sand:#EFE3D3;
+    --beige:#E6D4BE;
+    --taupe:#CDB89C;
+    --gold:#B08D57;
+    --gold-dark:#97744A;
+    --ink:#322A22;
+    --muted:#7C6C59;
+    --white:#FFFDF9;
+    --shadow:0 18px 50px -20px rgba(120,90,55,.45);
+    --radius:22px;
+    --maxw:1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Jost',sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.7;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.12;letter-spacing:.5px}
+  .script{font-family:'Great Vibes',cursive;color:var(--gold);font-weight:400;letter-spacing:1px}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  section{padding:96px 0}
+  .eyebrow{
+    display:inline-block;font-family:'Great Vibes',cursive;font-size:1.9rem;
+    color:var(--gold);line-height:1;margin-bottom:6px;
+  }
+  .sec-title{font-size:clamp(2rem,4vw,3.1rem);color:var(--ink);margin-bottom:14px}
+  .sec-lead{max-width:620px;color:var(--muted);font-size:1.05rem}
+  .center{text-align:center}
+  .center .sec-lead{margin:0 auto}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:'Jost';font-weight:500;font-size:.95rem;letter-spacing:.5px;
+    padding:14px 30px;border-radius:50px;border:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+    color:#fff;transition:.3s;text-transform:uppercase;
+    box-shadow:0 10px 24px -10px rgba(151,116,74,.7);
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px -10px rgba(151,116,74,.85)}
+  .btn-ghost{
+    background:transparent;color:var(--gold-dark);
+    border:1.5px solid var(--taupe);box-shadow:none;
+  }
+  .btn-ghost:hover{background:var(--beige);border-color:var(--gold)}
+  .btn-sm{padding:10px 22px;font-size:.8rem}
+
+  /* Animated white outline (border beam) on booking buttons */
+  @property --beam{syntax:'<angle>';inherits:false;initial-value:0deg}
+  .btn:not(.btn-ghost){position:relative;z-index:0;box-shadow:0 10px 24px -10px rgba(151,116,74,.7),inset 0 0 0 1px rgba(255,255,255,.28)}
+  .btn:not(.btn-ghost):hover{box-shadow:0 16px 30px -10px rgba(151,116,74,.85),inset 0 0 0 1px rgba(255,255,255,.4)}
+  .btn:not(.btn-ghost)::after{
+    content:'';position:absolute;inset:0;border-radius:inherit;padding:1.6px;pointer-events:none;
+    background:conic-gradient(from var(--beam),transparent 0deg,transparent 235deg,rgba(255,255,255,.95) 300deg,transparent 350deg);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+    animation:beam 4.5s linear infinite;
+  }
+  @keyframes beam{to{--beam:360deg}}
+
+  /* Scroll reveal */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .85s cubic-bezier(.22,.61,.36,1),transform .85s cubic-bezier(.22,.61,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* ===== Header ===== */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    transition:.35s;padding:18px 0;
+  }
+  header.scrolled{
+    background:rgba(247,240,230,.92);backdrop-filter:blur(12px);
+    padding:10px 0;box-shadow:0 6px 24px -14px rgba(120,90,55,.5);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;flex-direction:column;line-height:1}
+  .brand .name{font-family:'Cormorant Garamond';font-weight:600;font-size:1.45rem;letter-spacing:3px;color:var(--ink)}
+  .brand .sub{font-family:'Great Vibes';font-size:1rem;color:var(--gold);margin-top:-2px;letter-spacing:1px}
+  .menu{display:flex;gap:30px;list-style:none}
+  .menu a{font-size:.92rem;font-weight:400;letter-spacing:.6px;color:var(--ink);position:relative;transition:.25s}
+  .menu a::after{content:'';position:absolute;left:0;bottom:-5px;width:0;height:1.5px;background:var(--gold);transition:.3s}
+  .menu a:hover{color:var(--gold-dark)}
+  .menu a:hover::after{width:100%}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .lang{display:flex;border:1px solid var(--taupe);border-radius:50px;overflow:hidden}
+  .lang button{
+    background:transparent;border:none;cursor:pointer;font-family:'Jost';
+    font-size:.82rem;font-weight:500;padding:6px 14px;color:var(--muted);transition:.25s;letter-spacing:.5px;
+  }
+  .lang button.active{background:var(--gold);color:#fff}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+  .burger span{width:26px;height:2px;background:var(--ink);transition:.3s;border-radius:2px}
+
+  /* ===== Logo ===== */
+  .brand{display:flex;align-items:center}
+  .logo-img{height:52px;width:auto;display:block;transition:height .35s}
+  header.scrolled .logo-img{height:44px}
+
+  /* ===== MAIN HERO ===== */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:150px 0 110px}
+  .hero-bg{position:absolute;inset:0;z-index:-2;background:#F7F0E6 url('assets/heder.png') center/cover no-repeat}
+  .hero-bg::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(to right,rgba(247,240,230,0) 6%,rgba(247,240,230,.5) 22%,rgba(247,240,230,.34) 50%,rgba(247,240,230,.05) 70%,transparent 82%)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;width:100%}
+  .hero-text .eyebrow{font-size:1.05rem;font-family:'Jost';font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dark);background:none;margin-bottom:18px}
+  .hero-h1{font-size:clamp(2.7rem,5.4vw,4.6rem);line-height:1.04;letter-spacing:.5px;margin-bottom:22px}
+  .hero-h1 em{font-style:italic;font-family:'Cormorant Garamond';color:var(--gold-dark);font-weight:500}
+  .hero-sub{max-width:520px;color:var(--muted);font-size:1.14rem;margin-bottom:34px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .hero-cta .btn{padding:16px 36px}
+  .hero-visual{position:relative}
+  .hero-ph{min-height:520px;border-radius:30px}
+  /* Before/After slider */
+  .ba{position:absolute;inset:0;overflow:hidden;border-radius:inherit;touch-action:pan-y;-webkit-user-select:none;user-select:none;cursor:ew-resize;z-index:2}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;-webkit-user-drag:none}
+  .ba .ba-before{clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0)}
+  .ba-divider{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;margin-left:-1px;background:rgba(255,253,249,.95);box-shadow:0 0 12px rgba(0,0,0,.3);z-index:3;pointer-events:none}
+  .ba-grip{position:absolute;top:50%;left:var(--pos,50%);transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,253,249,.96);box-shadow:0 6px 20px rgba(120,90,55,.5);display:flex;align-items:center;justify-content:center;z-index:4;pointer-events:none}
+  .ba-grip svg{width:22px;height:22px;stroke:var(--gold-dark);fill:none;stroke-width:2}
+  .ba-tag{position:absolute;z-index:3;background:rgba(38,30,22,.6);color:#fff;font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:50px;backdrop-filter:blur(3px);pointer-events:none}
+  .ba-tag.l{left:14px;bottom:14px}
+  .ba-tag.r{right:14px;top:14px}
+  .float-badge{position:absolute;z-index:3;background:var(--white);border-radius:18px;padding:14px 20px;
+    box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;border:1px solid rgba(205,184,156,.45)}
+  .float-badge .fb-num{font-family:'Cormorant Garamond';font-weight:700;font-size:2rem;color:var(--gold-dark);line-height:1}
+  .float-badge .fb-txt{font-size:.82rem;color:var(--muted);line-height:1.25;max-width:96px;font-weight:400}
+  .fb-1{top:30px;left:-26px;animation:floaty 5s ease-in-out infinite}
+  .fb-2{bottom:36px;right:-22px;animation:floaty 5s ease-in-out infinite 1s}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+  .scroll-ind{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;
+    align-items:center;gap:9px;color:var(--gold-dark);font-size:.7rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;z-index:4}
+  .scroll-ind .mouse{width:24px;height:38px;border:1.5px solid var(--gold-dark);border-radius:14px;position:relative}
+  .scroll-ind .mouse::before{content:'';position:absolute;top:7px;left:50%;width:3px;height:7px;border-radius:3px;background:var(--gold-dark);transform:translateX(-50%);animation:wheel 1.6s infinite}
+  @keyframes wheel{0%{opacity:0;top:6px}30%{opacity:1}100%{opacity:0;top:18px}}
+
+  /* ===== About ===== */
+  .about{background:var(--cream)}
+  .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:60px;align-items:stretch}
+  .about-grid .photo-ph{order:1}
+  .about-grid .about-text{order:2}
+  .about-text .script-hi{font-size:2.4rem;display:block;margin-bottom:4px}
+  .about-title{font-size:clamp(2.2rem,4.6vw,3.5rem);margin-bottom:22px}
+  .about-text p{color:var(--muted);margin-bottom:18px;font-size:1.07rem}
+  .about-text .sign{font-family:'Great Vibes';font-size:2rem;color:var(--gold);margin-top:10px}
+  .about-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+  .photo-ph{
+    position:relative;border-radius:var(--radius);min-height:560px;
+    background:
+      linear-gradient(135deg,rgba(176,141,87,.18),rgba(205,184,156,.35)),
+      repeating-linear-gradient(45deg,var(--beige),var(--beige) 18px,var(--sand) 18px,var(--sand) 36px);
+    box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;
+    border:1px solid rgba(176,141,87,.3);overflow:hidden;
+  }
+  .photo-ph::before{
+    content:'';position:absolute;inset:14px;border:1px solid rgba(255,253,249,.6);border-radius:16px;pointer-events:none;
+  }
+  .photo-ph .ph-label{
+    text-align:center;color:var(--gold-dark);font-family:'Cormorant Garamond';
+    font-size:1.3rem;letter-spacing:1px;opacity:.8;z-index:2;
+  }
+  .photo-ph .ph-label svg{width:46px;height:46px;margin:0 auto 8px;display:block;stroke:var(--gold-dark);fill:none;stroke-width:1.3}
+  .photo-ph>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;border-radius:inherit;z-index:1}
+
+  /* ===== Advantages ===== */
+  .advantages{background:var(--ink);color:var(--cream)}
+  .advantages .eyebrow{color:var(--taupe)}
+  .advantages .sec-title{color:var(--white)}
+  .adv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:48px}
+  .adv-card{text-align:center;padding:30px 18px;border:1px solid rgba(205,184,156,.22);border-radius:var(--radius);transition:.35s}
+  .adv-card:hover{background:rgba(205,184,156,.08);transform:translateY(-6px)}
+  .adv-num{font-family:'Cormorant Garamond';font-size:3.4rem;font-weight:700;color:var(--gold);line-height:1}
+  .adv-num span{font-size:2rem}
+  .adv-label{margin-top:8px;font-size:.98rem;color:var(--sand);font-weight:300}
+
+  /* ===== Price list ===== */
+  .pricing{background:linear-gradient(180deg,var(--cream),var(--sand))}
+  .pricing .wrap{max-width:1300px}
+  .svc-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:50px}
+  .svc-card{
+    flex:0 1 calc((100% - 72px)/4);
+    position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/5;
+    box-shadow:0 18px 46px -26px rgba(120,90,55,.6);cursor:default;
+    background:linear-gradient(135deg,var(--beige),var(--sand));
+  }
+  .svc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .svc-card:hover .svc-img{transform:scale(1.07)}
+  .svc-overlay{
+    position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:24px 22px;color:#fff;
+    background:linear-gradient(to top,rgba(38,30,22,.9) 0%,rgba(38,30,22,.55) 26%,rgba(38,30,22,.12) 50%,transparent 70%);
+    transition:background .45s;
+  }
+  .svc-card:hover .svc-overlay{background:linear-gradient(to top,rgba(30,23,16,.95) 8%,rgba(30,23,16,.7) 40%,rgba(30,23,16,.35) 65%,rgba(30,23,16,.1) 85%,transparent)}
+  .svc-name{font-family:'Cormorant Garamond';font-weight:600;font-size:1.55rem;line-height:1.1;color:#fff;letter-spacing:.4px}
+  .svc-price{font-family:'Cormorant Garamond';font-weight:700;font-size:1.4rem;color:#E7C892;margin-top:6px}
+  .svc-reveal{max-height:0;opacity:0;overflow:hidden;transform:translateY(10px);transition:max-height .5s ease,opacity .4s ease,transform .5s ease}
+  .svc-card:hover .svc-reveal{max-height:260px;opacity:1;transform:none;margin-top:14px}
+  .svc-desc{font-size:.92rem;line-height:1.5;color:rgba(255,253,249,.92);margin-bottom:16px}
+  .svc-desc b{color:#E7C892;font-weight:500}
+  .svc-reveal .btn{width:100%}
+  /* touch devices: always show the description (no hover) */
+  @media(hover:none){
+    .svc-reveal{max-height:260px;opacity:1;transform:none;margin-top:14px}
+    .svc-overlay{background:linear-gradient(to top,rgba(30,23,16,.95) 10%,rgba(30,23,16,.7) 45%,rgba(30,23,16,.3) 70%,transparent)}
+  }
+
+  /* ===== Reviews ===== */
+  .reviews{background:var(--sand);overflow:hidden}
+  .rev-track-wrap{margin-top:46px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .rev-track{display:flex;gap:24px;width:max-content;animation:scroll 46s linear infinite}
+  .rev-track:hover{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .rev-card{
+    width:340px;background:var(--white);border-radius:var(--radius);padding:30px 28px;
+    box-shadow:0 14px 40px -28px rgba(120,90,55,.5);border:1px solid rgba(205,184,156,.4);flex-shrink:0;
+  }
+  .rev-stars{color:var(--gold);letter-spacing:3px;margin-bottom:14px;font-size:1.05rem}
+  .rev-text{font-size:.98rem;color:var(--ink);font-weight:300;font-style:italic;min-height:120px}
+  .rev-author{display:flex;align-items:center;gap:12px;margin-top:18px}
+  .rev-ava{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--taupe));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Cormorant Garamond';font-weight:700;font-size:1.2rem}
+  .rev-meta b{display:block;font-weight:500;color:var(--ink);font-family:'Cormorant Garamond';font-size:1.15rem}
+  .rev-meta span{font-size:.82rem;color:var(--muted)}
+
+  /* ===== FAQ ===== */
+  .faq-list{max-width:780px;margin:46px auto 0}
+  .faq-item{background:var(--white);border-radius:16px;margin-bottom:14px;border:1px solid rgba(205,184,156,.4);overflow:hidden;transition:.3s}
+  .faq-q{width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Cormorant Garamond';font-size:1.35rem;font-weight:600;color:var(--ink)}
+  .faq-q .ic{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;color:var(--gold-dark);transition:.3s;font-size:1.3rem;line-height:1}
+  .faq-item.open .ic{transform:rotate(45deg);background:var(--gold);color:#fff}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;color:var(--muted);font-size:1rem}
+  .faq-a div{padding:0 24px 22px}
+
+  /* ===== Footer ===== */
+  footer{background:var(--ink);color:var(--sand);padding:80px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:start}
+  .foot-contacts h3,.foot-form h3{font-size:2rem;color:var(--white);margin-bottom:8px}
+  .foot-contacts .eyebrow,.foot-form .eyebrow{color:var(--taupe)}
+  .contact-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid rgba(205,184,156,.16)}
+  .contact-row .ci{width:44px;height:44px;border-radius:50%;background:rgba(205,184,156,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .contact-row .ci svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.6}
+  .contact-row .ci svg.fill{fill:var(--gold);stroke:none}
+  .contact-row b{display:block;font-weight:500;color:var(--white);font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+  .contact-row span{font-size:1.02rem;color:var(--sand)}
+  .contact-row a:hover span{color:var(--gold)}
+
+  .foot-form{background:rgba(205,184,156,.07);border:1px solid rgba(205,184,156,.2);border-radius:var(--radius);padding:34px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.8rem;letter-spacing:.6px;color:var(--taupe);margin-bottom:6px;text-transform:uppercase}
+  .field input,.field select{
+    width:100%;padding:13px 16px;border-radius:12px;border:1px solid rgba(205,184,156,.3);
+    background:rgba(255,253,249,.06);color:var(--white);font-family:'Jost';font-size:.98rem;outline:none;transition:.25s;
+  }
+  .field input::placeholder{color:rgba(231,212,190,.5)}
+  .field input:focus,.field select:focus{border-color:var(--gold);background:rgba(255,253,249,.1)}
+  .field select option{background:var(--ink);color:var(--sand)}
+  .foot-form .btn{width:100%;margin-top:6px}
+  .foot-bottom{text-align:center;margin-top:56px;padding-top:24px;border-top:1px solid rgba(205,184,156,.16);font-size:.85rem;color:var(--taupe)}
+
+  /* ===== Modal ===== */
+  .modal-ov{position:fixed;inset:0;background:rgba(50,42,34,.6);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-ov.open{display:flex;animation:fade .3s}
+  @keyframes fade{from{opacity:0}}
+  .modal{background:var(--white);border-radius:var(--radius);max-width:440px;width:100%;padding:38px 34px;position:relative;box-shadow:var(--shadow);animation:pop .35s}
+  @keyframes pop{from{transform:translateY(20px) scale(.97);opacity:0}}
+  .modal .close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:1.8rem;cursor:pointer;color:var(--muted);line-height:1}
+  .modal .eyebrow{font-size:1.6rem}
+  .modal h3{font-size:1.9rem;margin-bottom:4px;color:var(--ink)}
+  .modal .m-sub{color:var(--muted);font-size:.95rem;margin-bottom:20px}
+  .modal .field label{color:var(--muted)}
+  .modal .field input,.modal .field select{background:var(--cream);color:var(--ink);border-color:var(--taupe)}
+  .modal .field input::placeholder{color:#b3a48f}
+  .modal .field select option{background:#fff;color:var(--ink)}
+  .modal .btn{width:100%;margin-top:8px}
+  .m-success{display:none;text-align:center;padding:14px 0}
+  .m-success .chk{width:64px;height:64px;border-radius:50%;background:var(--gold);margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
+  .m-success .chk svg{width:32px;height:32px;stroke:#fff;fill:none;stroke-width:2.5}
+  .m-success h3{margin-bottom:6px}
+
+  /* ===== Responsive ===== */
+  @media(max-width:980px){
+    .hero{min-height:auto;padding:140px 0 90px}
+    .hero-bg{background-position:center}
+    .hero-bg::after{background:linear-gradient(rgba(247,240,230,.5),rgba(247,240,230,.72))}
+    .hero-grid{grid-template-columns:1fr;gap:44px;text-align:center}
+    .hero-text .eyebrow{display:inline-block}
+    .hero-sub{margin-left:auto;margin-right:auto}
+    .hero-cta{justify-content:center}
+    .hero-visual{order:-1;max-width:460px;margin:0 auto;width:100%}
+    .hero-ph{min-height:360px}
+    .fb-1{left:-8px}.fb-2{right:-8px}
+    .scroll-ind{display:none}
+    .about-grid{grid-template-columns:1fr;gap:36px}
+    .photo-ph{min-height:420px;order:-1}
+    .adv-grid{grid-template-columns:repeat(2,1fr)}
+    .foot-grid{grid-template-columns:1fr;gap:40px}
+  }
+  @media(max-width:760px){
+    section{padding:70px 0}
+    .menu{
+      position:fixed;top:0;right:-100%;height:100vh;width:74%;max-width:320px;
+      flex-direction:column;background:var(--cream);padding:100px 36px;gap:26px;
+      box-shadow:-20px 0 50px -20px rgba(120,90,55,.5);transition:.4s;z-index:90;
+    }
+    .menu.open{right:0}
+    .menu a{font-size:1.2rem;font-family:'Cormorant Garamond'}
+    .burger{display:flex;z-index:95}
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  }
+  @media(max-width:760px){
+    .logo-img{height:36px}
+    .fb-1,.fb-2{padding:10px 14px}
+    .float-badge .fb-num{font-size:1.6rem}
+    .float-badge .fb-txt{font-size:.72rem;max-width:80px}
+  }
+  @media(max-width:520px){
+    .hero-ph{min-height:320px}
+    .fb-1{top:14px}.fb-2{bottom:16px}
+    .adv-grid{grid-template-columns:1fr}
+    .foot-form{padding:24px}
+    .rev-card{width:280px}
+  }
+  /* service grid 4 → 3 → 2 → 1 */
+  @media(max-width:1080px){.svc-card{flex-basis:calc((100% - 48px)/3)}}
+  @media(max-width:720px){
+    .svc-card{flex-basis:calc((100% - 24px)/2)}
+    /* on small screens always show the description (no reliable hover) */
+    .svc-reveal{max-height:260px;opacity:1;transform:none;margin-top:14px}
+    .svc-overlay{background:linear-gradient(to top,rgba(30,23,16,.95) 10%,rgba(30,23,16,.7) 45%,rgba(30,23,16,.3) 70%,transparent)}
+  }
+  @media(max-width:440px){.svc-card{flex-basis:100%}}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header id="header">
+  <div class="wrap nav">
+    <a href="#hero" class="brand" aria-label="Olga Skrypnyk Beauty Studio">
+      <img src="assets/logo.png" alt="Olga Skrypnyk Beauty Studio" class="logo-img">
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#about" data-i18n="nav_about">Über mich</a></li>
+      <li><a href="#advantages" data-i18n="nav_adv">Vorteile</a></li>
+      <li><a href="#pricing" data-i18n="nav_price">Preise</a></li>
+      <li><a href="#reviews" data-i18n="nav_rev">Bewertungen</a></li>
+      <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+      <li><a href="#footer" data-i18n="nav_contact">Kontakt</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang" translate="no">
+        <button data-lang="de" class="active">DE</button>
+        <button data-lang="ua">UA</button>
+      </div>
+      <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow" data-i18n="usp_eyebrow">Permanent Make-up · Studio Berlin</span>
+      <h1 class="hero-h1" data-i18n="usp_title">Schönheit, die jeden Morgen <em>für Sie aufsteht</em></h1>
+      <p class="hero-sub" data-i18n="usp_sub">Volle Brauen, frische Lippen, ein wacher Blick — natürlich, präzise und ganz ohne tägliches Schminken. Permanent Make-up, das aussieht wie Sie, nur perfekt.</p>
+      <div class="hero-cta">
+        <button class="btn js-book" data-i18n="usp_cta1">Termin buchen</button>
+        <a href="#about" class="btn btn-ghost" data-i18n="usp_cta2">Mehr erfahren</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="photo-ph hero-ph">
+        <div class="ba" id="ba" style="--pos:50%">
+          <img class="ba-after" src="assets/99.png" alt="Nachher — mit Wimpernverlängerung" draggable="false">
+          <img class="ba-before" src="assets/88.png" alt="Vorher — Naturwimpern" draggable="false">
+          <div class="ba-divider"></div>
+          <div class="ba-grip"><svg viewBox="0 0 24 24"><path d="M9 6l-4 6 4 6M15 6l4 6-4 6"/></svg></div>
+          <span class="ba-tag l" data-i18n="ba_before">Vorher</span>
+          <span class="ba-tag r" data-i18n="ba_after">Nachher</span>
+        </div>
+      </div>
+      <div class="float-badge fb-1"><span class="fb-num">7+</span><span class="fb-txt" data-i18n="usp_badge1">Jahre Erfahrung</span></div>
+      <div class="float-badge fb-2"><span class="fb-num">2000+</span><span class="fb-txt" data-i18n="usp_badge2">zufriedene Kundinnen</span></div>
+    </div>
+  </div>
+  <a href="#about" class="scroll-ind" aria-label="scroll">
+    <span class="mouse"></span>
+    <span data-i18n="usp_scroll">Mehr</span>
+  </a>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-text">
+      <span class="script script-hi" data-i18n="hero_hi">Schön, dass Sie da sind</span>
+      <h2 class="about-title" data-i18n="hero_title">Permanent Make-up mit Liebe zum Detail</h2>
+      <p data-i18n="about_p1">Mein Name ist Olga Skrypnyk — zertifizierte Meisterin für Permanent Make-up mit über 8 Jahren Erfahrung. Ich helfe Frauen, jeden Morgen perfekt auszusehen, ohne Aufwand und ohne Kompromisse.</p>
+      <p data-i18n="about_p2">In meinem Studio verbinde ich präzise Technik, hochwertige Pigmente und einen feinen Sinn für natürliche Schönheit. Mein Ziel ist nicht „auffälliges Make-up", sondern ein Ergebnis, das aussieht, als wären Sie einfach von Natur aus makellos.</p>
+      <p data-i18n="about_p3">Höchste Hygienestandards, individuelle Beratung und ein Ergebnis, das wirklich zu Ihnen passt — dafür stehe ich mit meinem Namen.</p>
+      <span class="sign">Olga Skrypnyk</span>
+      <div class="about-cta">
+        <button class="btn js-book" data-i18n="hero_btn1">Termin buchen</button>
+        <a href="#pricing" class="btn btn-ghost" data-i18n="hero_btn2">Preise ansehen</a>
+      </div>
+    </div>
+    <div class="photo-ph">
+      <img src="assets/111.png" alt="Olga — Perfect Lashes Studio">
+    </div>
+  </div>
+</section>
+
+<!-- ===== ADVANTAGES ===== -->
+<section class="advantages" id="advantages">
+  <div class="wrap center">
+    <span class="eyebrow" data-i18n="adv_eyebrow">Warum ich</span>
+    <h2 class="sec-title" data-i18n="adv_title">Meine Vorteile in Zahlen</h2>
+    <p class="sec-lead" data-i18n="adv_lead">Erfahrung, die man sieht — und Vertrauen, das man spürt.</p>
+    <div class="adv-grid">
+      <div class="adv-card"><div class="adv-num">7<span>+</span></div><div class="adv-label" data-i18n="adv1">Jahre Erfahrung mit Wimpern &amp; Brauen</div></div>
+      <div class="adv-card"><div class="adv-num">2000<span>+</span></div><div class="adv-label" data-i18n="adv2">zufriedene Kundinnen</div></div>
+      <div class="adv-card"><div class="adv-num">100<span>%</span></div><div class="adv-label" data-i18n="adv3">sterile Einweg­materialien &amp; Hygiene</div></div>
+      <div class="adv-card"><div class="adv-num">15<span>+</span></div><div class="adv-label" data-i18n="adv4">Zertifikate &amp; Fortbildungen</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow" data-i18n="price_eyebrow">Preisliste</span>
+      <h2 class="sec-title" data-i18n="price_title">Meine Behandlungen</h2>
+      <p class="sec-lead" data-i18n="price_lead">Transparente Preise. Jede Behandlung beinhaltet eine persönliche Beratung und eine kostenlose Nachbehandlung.</p>
+    </div>
+
+    <div class="svc-grid" id="priceGrid"></div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="reviews" id="reviews">
+  <div class="wrap center">
+    <span class="eyebrow" data-i18n="rev_eyebrow">Bewertungen</span>
+    <h2 class="sec-title" data-i18n="rev_title">Was meine Kundinnen sagen</h2>
+    <p class="sec-lead" data-i18n="rev_lead">Echte Stimmen von Frauen, die ihren Blick in den Spiegel wieder lieben.</p>
+  </div>
+  <div class="rev-track-wrap">
+    <div class="rev-track" id="revTrack"></div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="wrap center">
+    <span class="eyebrow" data-i18n="faq_eyebrow">FAQ</span>
+    <h2 class="sec-title" data-i18n="faq_title">Häufige Fragen</h2>
+    <p class="sec-lead" data-i18n="faq_lead">Alles, was Sie vor Ihrem Termin wissen möchten.</p>
+  </div>
+  <div class="faq-list" id="faqList"></div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+  <div class="wrap foot-grid">
+    <div class="foot-contacts">
+      <span class="eyebrow" data-i18n="foot_c_eyebrow">Kontakt</span>
+      <h3 data-i18n="foot_c_title">So erreichen Sie mich</h3>
+      <div style="margin-top:20px">
+        <div class="contact-row">
+          <div class="ci"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+          <div><b data-i18n="c_address">Adresse</b><span>Musterstraße 12, 10115 Berlin</span></div>
+        </div>
+        <a class="contact-row" href="tel:+4915123456789">
+          <div class="ci"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-3 2a12 12 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></div>
+          <div><b data-i18n="c_phone">Telefon</b><span>+49 151 234 567 89</span></div>
+        </a>
+        <a class="contact-row" href="https://wa.me/4915123456789" target="_blank" rel="noopener">
+          <div class="ci"><svg class="fill" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1112 20zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7 1-.3.2-.5.1a6.5 6.5 0 01-1.9-1.2 7 7 0 01-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.4.2-.4a.5.5 0 000-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11 11 0 004.3 3.8c1.6.7 1.6.5 1.9.4a2.5 2.5 0 001.6-1.1 2 2 0 00.1-1.1c0-.1-.2-.2-.4-.3z"/></svg></div>
+          <div><b>WhatsApp</b><span>+49 151 234 567 89</span></div>
+        </a>
+        <a class="contact-row" href="https://instagram.com/" target="_blank" rel="noopener">
+          <div class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" class="fill"/></svg></div>
+          <div><b>Instagram</b><span>@olga.skrypnyk.studio</span></div>
+        </a>
+        <a class="contact-row" href="https://t.me/" target="_blank" rel="noopener">
+          <div class="ci"><svg viewBox="0 0 24 24"><path d="M21 4L3 11l5 2 2 6 3-4 5 4z"/></svg></div>
+          <div><b>Telegram</b><span>@olga_skrypnyk</span></div>
+        </a>
+      </div>
+    </div>
+
+    <div class="foot-form">
+      <span class="eyebrow" data-i18n="foot_f_eyebrow">Anfrage</span>
+      <h3 data-i18n="foot_f_title">Termin anfragen</h3>
+      <form class="js-lead-form" data-source="footer">
+        <div class="field">
+          <label data-i18n="f_name">Name</label>
+          <input type="text" name="name" required data-i18n-ph="f_name_ph" placeholder="Ihr Name">
+        </div>
+        <div class="field">
+          <label data-i18n="f_phone">Telefon</label>
+          <input type="tel" name="phone" required data-i18n-ph="f_phone_ph" placeholder="+49 ...">
+        </div>
+        <div class="field">
+          <label data-i18n="f_service">Behandlung</label>
+          <select name="service" class="js-service-select"></select>
+        </div>
+        <button type="submit" class="btn" data-i18n="f_submit">Anfrage senden</button>
+      </form>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span data-i18n="foot_rights">© 2026 Olga Skrypnyk Beauty Studio · Permanent Make-up Berlin · Alle Rechte vorbehalten.</span>
+  </div>
+</footer>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-ov" id="modal">
+  <div class="modal">
+    <button class="close" id="modalClose">&times;</button>
+    <div class="m-form">
+      <span class="eyebrow" data-i18n="m_eyebrow">Terminanfrage</span>
+      <h3 data-i18n="m_title">Jetzt buchen</h3>
+      <p class="m-sub" data-i18n="m_sub">Ich melde mich persönlich bei Ihnen, um Ihren Wunschtermin zu bestätigen.</p>
+      <form class="js-lead-form" data-source="modal">
+        <div class="field">
+          <label data-i18n="f_service">Behandlung</label>
+          <select name="service" class="js-service-select"></select>
+        </div>
+        <div class="field">
+          <label data-i18n="f_name">Name</label>
+          <input type="text" name="name" required data-i18n-ph="f_name_ph" placeholder="Ihr Name">
+        </div>
+        <div class="field">
+          <label data-i18n="f_phone">Telefon</label>
+          <input type="tel" name="phone" required data-i18n-ph="f_phone_ph" placeholder="+49 ...">
+        </div>
+        <button type="submit" class="btn" data-i18n="m_submit">Anfrage absenden</button>
+      </form>
+    </div>
+    <div class="m-success">
+      <div class="chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+      <h3 data-i18n="m_ok_title">Vielen Dank!</h3>
+      <p class="m-sub" data-i18n="m_ok_sub">Ihre Anfrage ist eingegangen. Ich melde mich in Kürze bei Ihnen.</p>
+      <button class="btn js-modal-close" data-i18n="m_ok_btn">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ DATA ============ */
+const SERVICES = [
+  {id:'klassik', img:'assets/1.jpeg', name:{de:'Klassik 1:1', ua:'Класика 1:1'}, price:'€ 89',
+   desc:{de:'für einen natürlichen, definierten Look — eine Extension pro Naturwimper.', ua:'для природного, виразного вигляду — одна вія на кожну натуральну.'}},
+  {id:'vol23', img:'assets/8.jpg', name:{de:'Volume 2D–3D', ua:'Об’єм 2D–3D'}, price:'€ 99',
+   desc:{de:'für mehr Fülle und einen sanften, dennoch dichteren Wimpernkranz.', ua:'для більшого об’єму та м’якого, але густішого ряду вій.'}},
+  {id:'vol45', img:'assets/5.jpeg', name:{de:'Volume 4D–5D', ua:'Об’єм 4D–5D'}, price:'€ 109',
+   desc:{de:'für einen ausdrucksstarken, vollen Look mit viel Tiefe.', ua:'для виразного, насиченого вигляду з глибиною.'}},
+  {id:'mega', img:'assets/2.jpg', name:{de:'Mega Volume', ua:'Mega Volume'}, price:'€ 129',
+   desc:{de:'für maximale Dichte und einen glamourösen, intensiven Blick.', ua:'для максимальної густоти та гламурного, інтенсивного погляду.'}},
+  {id:'wispy', img:'assets/3.jpg', name:{de:'Wet & Wispy Look', ua:'Wet & Wispy Look'}, price:'€ 109',
+   desc:{de:'für den angesagten Wet- bzw. Wispy-Look mit feinen Strähnchen-Akzenten.', ua:'для модного Wet/Wispy-ефекту з тонкими акцентами-пасмами.'}},
+  {id:'refill', img:'assets/4.jpg', name:{de:'Auffüllen / Refill', ua:'Корекція / Refill'}, price:{de:'ab € 49', ua:'від € 49'},
+   desc:{de:'Auffüllen nach 2–3 Wochen, um Ihren Look frisch und voll zu halten.', ua:'корекція через 2–3 тижні, щоб образ лишався свіжим і густим.'}},
+  {id:'lashlift', img:'assets/7.jpg', name:{de:'Wimpernlifting & Färben', ua:'Ламінування та фарбування вій'}, price:'€ 65',
+   desc:{de:'für geschwungene, getönte Naturwimpern — ganz ohne Extensions.', ua:'для підкручених, затонованих натуральних вій — без нарощування.'}},
+  {id:'browlift', img:'assets/6.jpg', name:{de:'Browlifting & Styling', ua:'Ламінування та стайлінг брів'}, price:'€ 55',
+   desc:{de:'für gepflegte, in Form gelegte Augenbrauen mit vollem, natürlichem Look.', ua:'для доглянутих, укладених брів із густим, природним виглядом.'}},
+  {id:'browtint', img:'assets/9.jpeg', name:{de:'Augenbrauen färben', ua:'Фарбування брів'}, price:'€ 20',
+   desc:{de:'für definierte, harmonisch betonte Augenbrauen.', ua:'для чітких, гармонійно підкреслених брів.'}}
+];
+
+const REVIEWS = [
+  {n:'Lena M.',  c:'Berlin',     t:{de:'Ich bin absolut begeistert von meinem Volume-Set! Die Wimpern sehen unglaublich natürlich und voll aus — meine Freundinnen fragen ständig, ob sie echt sind.', ua:'Я в захваті від свого Volume-набору! Вії виглядають неймовірно природно й густо — подруги постійно питають, чи вони справжні.'}},
+  {n:'Sophie K.',c:'Potsdam',    t:{de:'Sehr saubere, präzise Arbeit und alles absolut hygienisch. Die Beratung war ehrlich und ich habe mich vom ersten Moment an wohlgefühlt.', ua:'Дуже акуратна, точна робота, усе абсолютно гігієнічно. Консультація чесна, я почувалася комфортно з першої хвилини.'}},
+  {n:'Marie L.', c:'Berlin',     t:{de:'Endlich ein wacher Blick ganz ohne Mascara! Das Wimpernlifting hält perfekt und sieht so natürlich aus. Ich komme immer wieder.', ua:'Нарешті свіжий погляд зовсім без туші! Ламінування вій тримається ідеально й виглядає так природно. Повертаюся знову і знову.'}},
+  {n:'Anna B.',  c:'Hamburg',    t:{de:'Ich hatte etwas Angst, aber die Behandlung war total entspannend — ich bin fast eingeschlafen. Das Ergebnis hält seit Wochen top!', ua:'Трохи хвилювалася, але процедура була дуже розслабляючою — я мало не заснула. Результат уже тижні тримається чудово!'}},
+  {n:'Julia R.', c:'Berlin',     t:{de:'Mega Volume war genau mein Look — intensiv, aber trotzdem elegant. Olga hat die Form perfekt an meine Augen angepasst.', ua:'Mega Volume — саме мій образ: інтенсивно, але елегантно. Ольга ідеально підібрала форму під мої очі.'}},
+  {n:'Nina S.',  c:'Leipzig',    t:{de:'Vom ersten Gespräch bis zur Pflegeberatung — alles top organisiert. Man merkt, dass hier jemand mit Leidenschaft und Können arbeitet.', ua:'Від першої розмови до порад з догляду — усе на вищому рівні. Видно, що людина працює з любов’ю та майстерністю.'}},
+  {n:'Klara W.', c:'Berlin',     t:{de:'Das Browlifting hat meine Augenbrauen komplett verwandelt — voller, gepflegter und perfekt in Form. Ich bin so dankbar!', ua:'Ламінування брів повністю перетворило мої брови — густіші, доглянуті та ідеальної форми. Я дуже вдячна!'}},
+  {n:'Eva T.',   c:'München',    t:{de:'Wunderschönes Studio, herzliche Atmosphäre und Wimpern, die mich jeden Morgen glücklich machen. Absolut empfehlenswert!', ua:'Чудова студія, тепла атмосфера й вії, які щоранку мене тішать. Дуже рекомендую!'}}
+];
+
+const FAQ = [
+  {q:{de:'Wie lange hält eine Wimpernverlängerung?', ua:'Скільки тримається нарощування вій?'},
+   a:{de:'In der Regel 4–6 Wochen, abhängig vom natürlichen Wachstumszyklus Ihrer Wimpern und der Pflege. Mit regelmäßigem Auffüllen bleibt der Look dauerhaft voll.', ua:'Зазвичай 4–6 тижнів — залежно від природного циклу росту ваших вій і догляду. З регулярною корекцією образ лишається густим постійно.'}},
+  {q:{de:'Tut die Behandlung weh?', ua:'Чи боляче робити процедуру?'},
+   a:{de:'Nein, die Behandlung ist völlig schmerzfrei. Sie liegen entspannt mit geschlossenen Augen — viele Kundinnen schlafen dabei sogar ein.', ua:'Ні, процедура абсолютно безболісна. Ви лежите розслаблено із заплющеними очима — багато клієнток навіть засинають.'}},
+  {q:{de:'Wie oft muss ich auffüllen lassen?', ua:'Як часто потрібна корекція?'},
+   a:{de:'Für einen konstant vollen Look empfehle ich ein Auffüllen alle 2–3 Wochen. So bleiben Ihre Wimpern gleichmäßig und gepflegt.', ua:'Для стабільно густого вигляду раджу корекцію кожні 2–3 тижні. Так вії лишаються рівномірними й доглянутими.'}},
+  {q:{de:'Wie pflege ich meine Wimpern richtig?', ua:'Як правильно доглядати за віями?'},
+   a:{de:'Nicht reiben, ölfreie Produkte verwenden und die Wimpern sanft reinigen. Alle Pflegetipps bespreche ich individuell nach Ihrem Termin.', ua:'Не терти, використовувати засоби без олій і делікатно очищувати вії. Усі поради з догляду я даю індивідуально після процедури.'}},
+  {q:{de:'Wie lange dauert ein Termin?', ua:'Скільки триває сеанс?'},
+   a:{de:'Eine Neuanlage dauert je nach Technik ca. 1,5–2,5 Stunden, ein Auffüllen etwa 1 Stunde. Nehmen Sie sich diese Zeit ganz für sich.', ua:'Перше нарощування триває приблизно 1,5–2,5 години залежно від техніки, корекція — близько 1 години. Подаруйте цей час собі.'}}
+];
+
+/* ============ I18N ============ */
+const I18N = {
+  de:{
+    nav_about:'Über mich',nav_adv:'Vorteile',nav_price:'Preise',nav_rev:'Bewertungen',nav_faq:'FAQ',nav_contact:'Kontakt',
+    usp_eyebrow:'Wimpern & Augenbrauen · Studio',
+    usp_title:'Ein Blick, der jeden Morgen <em>schon perfekt ist</em>',
+    usp_sub:'Professionelle Wimpernverlängerung, Lifting und Augenbrauen — natürlich, präzise und individuell auf Ihre Augenform abgestimmt. Wach aufwachen, ganz ohne Mascara.',
+    usp_cta1:'Termin buchen',usp_cta2:'Mehr erfahren',
+    usp_badge1:'Jahre Erfahrung',usp_badge2:'zufriedene Kundinnen',usp_scroll:'Mehr',photo_hero:'Foto / Portfolio',
+    ba_before:'Vorher',ba_after:'Nachher',
+    hero_hi:'Herzlich willkommen',
+    hero_title:'Wimpern & Augenbrauen mit Erfahrung und Leidenschaft',
+    about_p1:'Willkommen bei Olga Perfect Lashes — Ihrer Adresse für professionelle Wimpern- und Augenbrauenbehandlungen. Seit rund 7 Jahren widme ich mich mit großer Leidenschaft der professionellen Wimpernverlängerung und habe dabei umfangreiche Erfahrung mit unterschiedlichen Techniken, Looks und individuellen Augenformen gesammelt.',
+    about_p2:'Mein Ziel ist es, die natürliche Schönheit jeder Kundin zu unterstreichen und einen Look zu kreieren, der perfekt zu ihrer Persönlichkeit, ihrem Stil und ihren Wünschen passt — vom dezenten, natürlichen Look bis hin zu ausdrucksstarkem Mega Volume.',
+    about_p3:'Qualität, Präzision und ein professionelles Ergebnis stehen bei mir an erster Stelle. Mein Studio soll ein Ort sein, an dem Sie sich wohlfühlen, entspannen und sich auf eine Behandlung mit viel Liebe zum Detail verlassen können.',
+    hero_btn1:'Termin buchen',hero_btn2:'Preise ansehen',photo_ph:'Foto von Olga',
+    adv_eyebrow:'Warum ich',adv_title:'Meine Vorteile in Zahlen',adv_lead:'Erfahrung, die man sieht — und Vertrauen, das man spürt.',
+    adv1:'Jahre Erfahrung mit Wimpern & Brauen',adv2:'zufriedene Kundinnen',adv3:'Hygiene & hochwertige Materialien',adv4:'Zertifikate & Fortbildungen',
+    price_eyebrow:'Preisliste',price_title:'Meine Behandlungen',price_lead:'Transparente Preise. Jede Behandlung wird individuell auf Ihre Augenform und Ihren gewünschten Look abgestimmt.',
+    for_label:'Für wen:',book_btn:'Termin buchen',
+    proc1_name:'Powder Brows',proc1_for:'für alle, die volle, natürlich schattierte Augenbrauen ohne tägliches Nachzeichnen möchten.',
+    proc2_name:'Aquarell Lippen',proc2_for:'für blasse oder konturlose Lippen — sanfte Farbe und Frische ganz ohne Lippenstift.',
+    proc3_name:'Eyeliner / Wimpernkranz',proc3_for:'für einen ausdrucksstarken, wachen Blick — dezent verdichtet oder als feiner Lidstrich.',
+    proc4_name:'Microblading',proc4_for:'für dünne oder lückenhafte Brauen — feine Härchen-Technik für ein ultra-natürliches Ergebnis.',
+    rev_eyebrow:'Bewertungen',rev_title:'Was meine Kundinnen sagen',rev_lead:'Echte Stimmen von Frauen, die ihren Blick in den Spiegel wieder lieben.',
+    faq_eyebrow:'FAQ',faq_title:'Häufige Fragen',faq_lead:'Alles, was Sie vor Ihrem Termin wissen möchten.',
+    foot_c_eyebrow:'Kontakt',foot_c_title:'So erreichen Sie mich',c_address:'Adresse',c_phone:'Telefon',
+    foot_f_eyebrow:'Anfrage',foot_f_title:'Termin anfragen',
+    f_name:'Name',f_name_ph:'Ihr Name',f_phone:'Telefon',f_phone_ph:'+49 ...',f_service:'Behandlung',f_submit:'Anfrage senden',
+    foot_rights:'© 2026 Olga Skrypnyk Beauty Studio · Wimpern & Augenbrauen · Alle Rechte vorbehalten.',
+    m_eyebrow:'Terminanfrage',m_title:'Jetzt buchen',m_sub:'Ich melde mich persönlich bei Ihnen, um Ihren Wunschtermin zu bestätigen.',
+    m_submit:'Anfrage absenden',m_ok_title:'Vielen Dank!',m_ok_sub:'Ihre Anfrage ist eingegangen. Ich melde mich in Kürze bei Ihnen.',m_ok_btn:'Schließen'
+  },
+  ua:{
+    nav_about:'Про мене',nav_adv:'Переваги',nav_price:'Ціни',nav_rev:'Відгуки',nav_faq:'Питання',nav_contact:'Контакти',
+    usp_eyebrow:'Вії та брови · Студія',
+    usp_title:'Погляд, що <em>вже досконалий</em> щоранку',
+    usp_sub:'Професійне нарощування вій, ламінування та брови — природно, точно й індивідуально під форму ваших очей. Прокидайтеся з виразним поглядом зовсім без туші.',
+    usp_cta1:'Записатися на процедуру',usp_cta2:'Читати далі',
+    usp_badge1:'років досвіду',usp_badge2:'задоволених клієнток',usp_scroll:'Далі',photo_hero:'Фото / Портфоліо',
+    ba_before:'До',ba_after:'Після',
+    hero_hi:'Ласкаво просимо',
+    hero_title:'Вії та брови з досвідом і любов’ю',
+    about_p1:'Ласкаво просимо до Olga Perfect Lashes — вашого місця для професійного нарощування вій та догляду за бровами. Уже близько 7 років я з великою любов’ю займаюся професійним нарощуванням вій і за цей час здобула ґрунтовний досвід у різних техніках, образах та роботі з індивідуальною формою очей.',
+    about_p2:'Моя мета — підкреслити природну красу кожної клієнтки та створити образ, що ідеально пасує її особистості, стилю й побажанням — від делікатного природного вигляду до виразного Mega Volume.',
+    about_p3:'Якість, точність і професійний результат для мене на першому місці. Моя студія — це місце, де ви почуваєтеся комфортно, розслабляєтеся й можете довіритися дбайливій роботі з увагою до кожної деталі.',
+    hero_btn1:'Записатися',hero_btn2:'Переглянути ціни',photo_ph:'Фото Ольги',
+    adv_eyebrow:'Чому я',adv_title:'Мої переваги в цифрах',adv_lead:'Досвід, який видно — і довіра, яку відчуваєш.',
+    adv1:'років досвіду з віями та бровами',adv2:'задоволених клієнток',adv3:'гігієна та якісні матеріали',adv4:'сертифікатів і курсів підвищення',
+    price_eyebrow:'Прайс-лист',price_title:'Мої процедури',price_lead:'Прозорі ціни. Кожна процедура індивідуально підбирається під форму ваших очей і бажаний образ.',
+    for_label:'Для кого:',book_btn:'Записатися',
+    proc1_name:'Пудрові брови',proc1_for:'для всіх, хто хоче густі, природно затушовані брови без щоденного підмальовування.',
+    proc2_name:'Акварельні губи',proc2_for:'для блідих або без контуру губ — ніжний колір і свіжість зовсім без помади.',
+    proc3_name:'Стрілки / Міжвійковий простір',proc3_for:'для виразного, відкритого погляду — делікатне заповнення або тонка стрілка.',
+    proc4_name:'Мікроблейдинг',proc4_for:'для тонких або з прогалинами брів — техніка волосків для ультраприродного результату.',
+    rev_eyebrow:'Відгуки',rev_title:'Що кажуть мої клієнтки',rev_lead:'Справжні голоси жінок, які знову люблять свій погляд у дзеркалі.',
+    faq_eyebrow:'Питання',faq_title:'Часті запитання',faq_lead:'Усе, що ви хочете знати перед своїм візитом.',
+    foot_c_eyebrow:'Контакти',foot_c_title:'Як зі мною зв’язатися',c_address:'Адреса',c_phone:'Телефон',
+    foot_f_eyebrow:'Заявка',foot_f_title:'Записатися на процедуру',
+    f_name:'Ім’я',f_name_ph:'Ваше ім’я',f_phone:'Телефон',f_phone_ph:'+49 ...',f_service:'Процедура',f_submit:'Надіслати заявку',
+    foot_rights:'© 2026 Olga Skrypnyk Beauty Studio · Вії та брови · Усі права захищено.',
+    m_eyebrow:'Заявка на запис',m_title:'Записатися',m_sub:'Я особисто зв’яжуся з вами, щоб підтвердити бажаний час.',
+    m_submit:'Надіслати заявку',m_ok_title:'Дякую!',m_ok_sub:'Вашу заявку отримано. Я зв’яжуся з вами найближчим часом.',m_ok_btn:'Закрити'
+  }
+};
+
+let LANG = 'de';
+const txt = v => typeof v === 'object' ? (v[LANG] || v.de) : v;
+
+/* ============ BUILD DYNAMIC CONTENT ============ */
+function renderPricing(){
+  const fallback='linear-gradient(135deg,var(--taupe),var(--sand))';
+  document.getElementById('priceGrid').innerHTML = SERVICES.map(s=>`
+    <article class="svc-card">
+      ${s.img?`<img class="svc-img" src="${s.img}" alt="${txt(s.name)}" loading="lazy">`:`<div class="svc-img" style="background:${fallback}"></div>`}
+      <div class="svc-overlay">
+        <h3 class="svc-name">${txt(s.name)}</h3>
+        <div class="svc-price">${txt(s.price)}</div>
+        <div class="svc-reveal">
+          <p class="svc-desc"><b>${I18N[LANG].for_label}</b> ${txt(s.desc)}</p>
+          <button class="btn btn-sm js-book" data-id="${s.id}">${I18N[LANG].book_btn}</button>
+        </div>
+      </div>
+    </article>`).join('');
+}
+function buildReviews(){
+  const cards = REVIEWS.map(r=>`
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">„${txt(r.t)}"</p>
+      <div class="rev-author">
+        <div class="rev-ava">${r.n[0]}</div>
+        <div class="rev-meta"><b>${r.n}</b><span>${r.c}</span></div>
+      </div>
+    </div>`).join('');
+  document.getElementById('revTrack').innerHTML = cards + cards; // duplicate for seamless loop
+}
+function buildFaq(){
+  document.getElementById('faqList').innerHTML = FAQ.map(f=>`
+    <div class="faq-item">
+      <button class="faq-q"><span>${txt(f.q)}</span><span class="ic">+</span></button>
+      <div class="faq-a"><div>${txt(f.a)}</div></div>
+    </div>`).join('');
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click',()=>{
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null});
+      if(!open){item.classList.add('open');const a=item.querySelector('.faq-a');a.style.maxHeight=a.scrollHeight+'px';}
+    });
+  });
+}
+function buildServiceSelects(){
+  const opts = SERVICES.map(s=>`<option value="${s.id}">${txt(s.name)} — ${txt(s.price)}</option>`).join('');
+  document.querySelectorAll('.js-service-select').forEach(sel=>{const v=sel.value;sel.innerHTML=opts;if(v)sel.value=v;});
+}
+
+/* ============ I18N APPLY ============ */
+function applyLang(){
+  document.documentElement.lang = LANG === 'ua' ? 'uk' : 'de';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n'); if(I18N[LANG][k]!==undefined) el.innerHTML = I18N[LANG][k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-ph'); if(I18N[LANG][k]!==undefined) el.placeholder = I18N[LANG][k];
+  });
+  renderPricing(); buildReviews(); buildFaq(); buildServiceSelects();
+}
+
+/* ============ MODAL & FORMS ============ */
+const modal = document.getElementById('modal');
+function openModal(id){
+  modal.querySelector('.m-form').style.display='block';
+  modal.querySelector('.m-success').style.display='none';
+  if(id){const sel = modal.querySelector('.js-service-select'); sel.value = id;}
+  modal.classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeModal(){modal.classList.remove('open'); document.body.style.overflow='';}
+document.getElementById('modalClose').addEventListener('click',closeModal);
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+document.querySelectorAll('.js-modal-close').forEach(b=>b.addEventListener('click',closeModal));
+
+document.body.addEventListener('click',e=>{
+  const b = e.target.closest('.js-book'); if(!b) return;
+  openModal(b.getAttribute('data-id')); // empty for hero button → first service
+});
+
+// form submit (placeholder — Telegram bot to be connected later)
+document.querySelectorAll('.js-lead-form').forEach(form=>{
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const data = {
+      source: form.dataset.source,
+      service: form.querySelector('[name=service]').value,
+      name: form.querySelector('[name=name]').value,
+      phone: form.querySelector('[name=phone]').value
+    };
+    console.log('LEAD (TODO: send to Telegram bot):', data);
+    // TODO: replace with fetch('/api/lead', {method:'POST', body: JSON.stringify(data)})
+    if(form.dataset.source==='modal'){
+      modal.querySelector('.m-form').style.display='none';
+      modal.querySelector('.m-success').style.display='block';
+    } else {
+      form.reset();
+      openModal(data.service);
+      modal.querySelector('.m-form').style.display='none';
+      modal.querySelector('.m-success').style.display='block';
+    }
+  });
+});
+
+/* ============ HEADER / NAV / LANG ============ */
+const header = document.getElementById('header');
+window.addEventListener('scroll',()=>header.classList.toggle('scrolled', window.scrollY>40));
+const burger = document.getElementById('burger'), menu = document.getElementById('menu');
+burger.addEventListener('click',()=>{burger.classList.toggle('open');menu.classList.toggle('open');});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');menu.classList.remove('open');}));
+document.querySelectorAll('.lang button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    LANG = b.dataset.lang;
+    document.querySelectorAll('.lang button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    applyLang();
+  });
+});
+
+/* ============ SCROLL REVEAL ============ */
+function initReveal(){
+  const sel = '.hero-text,.hero-visual,.about-text,.photo-ph,.sec-title,.sec-lead,.adv-card,.svc-card,.rev-track-wrap,.faq-list,.foot-contacts,.foot-form';
+  const els = document.querySelectorAll(sel);
+  els.forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(i%4*0.07)+'s';});
+  const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(el=>io.observe(el));
+}
+
+/* ============ BEFORE / AFTER SLIDER ============ */
+function initBeforeAfter(){
+  const ba = document.getElementById('ba'); if(!ba) return;
+  let dragging = false;
+  const setPos = x => {
+    const r = ba.getBoundingClientRect();
+    let p = (x - r.left) / r.width * 100;
+    p = Math.max(2, Math.min(98, p));
+    ba.style.setProperty('--pos', p + '%');
+  };
+  ba.addEventListener('pointerdown', e => { dragging = true; try{ba.setPointerCapture(e.pointerId);}catch(_){} setPos(e.clientX); });
+  ba.addEventListener('pointermove', e => { if(dragging) setPos(e.clientX); });
+  const stop = () => dragging = false;
+  ba.addEventListener('pointerup', stop);
+  ba.addEventListener('pointercancel', stop);
+}
+
+/* ============ INIT ============ */
+applyLang();
+initReveal();
+initBeforeAfter();
+</script>
+</body>
+</html>
