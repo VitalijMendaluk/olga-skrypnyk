@@ -319,6 +319,20 @@
   .m-success .chk{width:64px;height:64px;border-radius:50%;background:var(--gold);margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
   .m-success .chk svg{width:32px;height:32px;stroke:#fff;fill:none;stroke-width:2.5}
   .m-success h3{margin-bottom:6px}
+  .modal{max-height:92vh;overflow-y:auto}
+  .m-photo{display:block;width:100%;height:200px;border:none;padding:0;margin:0 0 20px;border-radius:14px;overflow:hidden;position:relative;cursor:zoom-in;background:var(--sand)}
+  .m-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .m-photo-zoom{position:absolute;right:10px;bottom:10px;width:34px;height:34px;border-radius:50%;background:rgba(38,30,22,.6);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center}
+  .m-photo-zoom svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.8}
+  /* Lightbox */
+  .lightbox{position:fixed;inset:0;z-index:300;background:rgba(24,18,12,.93);display:none;align-items:center;justify-content:center}
+  .lightbox.open{display:flex;animation:fade .25s}
+  .lb-stage{width:100%;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:zoom-in}
+  .lb-stage.zoomed{cursor:grab}
+  .lb-stage img{max-width:92vw;max-height:86vh;object-fit:contain;transform-origin:center center;will-change:transform;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
+  .lb-close{position:absolute;top:18px;right:22px;z-index:2;background:rgba(255,253,249,.15);border:1px solid rgba(255,253,249,.45);color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.9rem;line-height:1;cursor:pointer;backdrop-filter:blur(4px);transition:.2s}
+  .lb-close:hover{background:rgba(255,253,249,.28)}
+  .lb-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:rgba(255,253,249,.72);font-size:.78rem;letter-spacing:.5px;pointer-events:none;text-align:center;padding:0 20px}
 
   /* ===== Responsive ===== */
   @media(max-width:980px){
@@ -573,6 +587,10 @@
   <div class="modal">
     <button class="close" id="modalClose">&times;</button>
     <div class="m-form">
+      <button type="button" class="m-photo" id="mPhoto" style="display:none" aria-label="Foto vergrößern">
+        <img id="mPhotoImg" src="" alt="" draggable="false">
+        <span class="m-photo-zoom"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+      </button>
       <span class="eyebrow" data-i18n="m_eyebrow">Terminanfrage</span>
       <h3 data-i18n="m_title">Jetzt buchen</h3>
       <p class="m-sub" data-i18n="m_sub">Ich melde mich persönlich bei Ihnen, um Ihren Wunschtermin zu bestätigen.</p>
@@ -601,6 +619,13 @@
   </div>
 </div>
 
+<!-- ===== LIGHTBOX (zoomable photo) ===== -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Schließen">&times;</button>
+  <div class="lb-stage" id="lbStage"><img id="lbImg" src="" alt="" draggable="false"></div>
+  <span class="lb-hint" data-i18n="lb_hint">Zum Zoomen tippen · ziehen zum Bewegen</span>
+</div>
+
 <script>
 /* ============ DATA ============ */
 const SERVICES = [
@@ -624,11 +649,17 @@ const SERVICES = [
 const EXTRAS = [
   {id:'zupfen', name:{de:'Augenbrauen zupfen', ua:'Корекція форми брів'}, price:'€ 5',
    desc:{de:'Präzises Formen der Augenbrauen für eine saubere, harmonische Kontur — individuell an Ihre Gesichtsform angepasst.', ua:'Точне формування брів для чистого, гармонійного контуру — індивідуально під форму обличчя.'}},
-  {id:'fill1', name:{de:'Auffüllen nach 1 Woche', ua:'Корекція через 1 тиждень'}, price:'€ 30',
+  {id:'browcorr', name:{de:'Augenbrauenkorrektur inkl. Färben', ua:'Корекція брів із фарбуванням'}, price:'€ 15',
+   desc:{de:'Formkorrektur und Färben der Augenbrauen für mehr Ausdruck und ein perfekt definiertes Ergebnis.', ua:'Корекція форми та фарбування брів для більшої виразності й ідеально окресленого результату.'}},
+  {id:'lashtint', name:{de:'Wimpern färben', ua:'Фарбування вій'}, price:'€ 10',
+   desc:{de:'Intensive Wimpernfarbe für einen ausdrucksstarken Blick — ganz ohne Mascara.', ua:'Насичене фарбування вій для виразного погляду — зовсім без туші.'}},
+  {id:'curls', name:{de:'Spezial-Curls (M, L oder LC)', ua:'Спеціальні вигини (M, L або LC)'}, price:{de:'+ € 10', ua:'+ € 10'},
+   desc:{de:'Verleihen den Wimpern einen besonders eleganten Schwung und einen einzigartigen Look. Aufpreis zum regulären Preis der Wimpernverlängerung.', ua:'Надають віям особливо елегантного вигину й унікального вигляду. Доплата до звичайної ціни нарощування.'}},
+  {id:'fill1', name:{de:'Auffüllen Mega Volumen nach 1 Woche', ua:'Корекція Mega Volume через 1 тиждень'}, price:'€ 30',
    desc:{de:'Zur Auffrischung der Wimpernverlängerung innerhalb einer Woche — für ein dauerhaft gepflegtes, volles Ergebnis.', ua:'Оновлення нарощування протягом тижня — для стабільно доглянутого, густого результату.'}},
-  {id:'fill2', name:{de:'Auffüllen nach 2 Wochen', ua:'Корекція через 2 тижні'}, price:'€ 55',
+  {id:'fill2', name:{de:'Auffüllen Mega Volumen nach 2 Wochen', ua:'Корекція Mega Volume через 2 тижні'}, price:'€ 55',
    desc:{de:'Auffüllen der herausgewachsenen Wimpern nach zwei Wochen, um Volumen und Form zu erhalten.', ua:'Заповнення відрослих вій через два тижні, щоб зберегти об’єм і форму.'}},
-  {id:'fill3', name:{de:'Auffüllen nach 3 Wochen', ua:'Корекція через 3 тижні'}, price:'€ 65',
+  {id:'fill3', name:{de:'Auffüllen Mega Volumen nach 3 Wochen', ua:'Корекція Mega Volume через 3 тижні'}, price:'€ 65',
    desc:{de:'Professionelles Auffüllen nach drei Wochen für einen gleichmäßigen, gepflegten und langanhaltenden Look.', ua:'Професійна корекція через три тижні для рівномірного, доглянутого й стійкого вигляду.'}}
 ];
 
@@ -688,7 +719,8 @@ const I18N = {
     f_name:'Name',f_name_ph:'Ihr Name',f_phone:'Telefon',f_phone_ph:'+49 ...',f_service:'Behandlung',f_submit:'Anfrage senden',
     foot_rights:'© 2026 Olga Skrypnyk Beauty Studio · Wimpern & Augenbrauen · Alle Rechte vorbehalten.',
     m_eyebrow:'Terminanfrage',m_title:'Jetzt buchen',m_sub:'Ich melde mich persönlich bei Ihnen, um Ihren Wunschtermin zu bestätigen.',
-    m_submit:'Anfrage absenden',m_ok_title:'Vielen Dank!',m_ok_sub:'Ihre Anfrage ist eingegangen. Ich melde mich in Kürze bei Ihnen.',m_ok_btn:'Schließen'
+    m_submit:'Anfrage absenden',m_ok_title:'Vielen Dank!',m_ok_sub:'Ihre Anfrage ist eingegangen. Ich melde mich in Kürze bei Ihnen.',m_ok_btn:'Schließen',
+    lb_hint:'Zum Zoomen tippen · ziehen zum Bewegen'
   },
   ua:{
     nav_about:'Про мене',nav_adv:'Переваги',nav_price:'Ціни',nav_rev:'Відгуки',nav_faq:'Питання',nav_contact:'Контакти',
@@ -720,7 +752,8 @@ const I18N = {
     f_name:'Ім’я',f_name_ph:'Ваше ім’я',f_phone:'Телефон',f_phone_ph:'+49 ...',f_service:'Процедура',f_submit:'Надіслати заявку',
     foot_rights:'© 2026 Olga Skrypnyk Beauty Studio · Вії та брови · Усі права захищено.',
     m_eyebrow:'Заявка на запис',m_title:'Записатися',m_sub:'Я особисто зв’яжуся з вами, щоб підтвердити бажаний час.',
-    m_submit:'Надіслати заявку',m_ok_title:'Дякую!',m_ok_sub:'Вашу заявку отримано. Я зв’яжуся з вами найближчим часом.',m_ok_btn:'Закрити'
+    m_submit:'Надіслати заявку',m_ok_title:'Дякую!',m_ok_sub:'Вашу заявку отримано. Я зв’яжуся з вами найближчим часом.',m_ok_btn:'Закрити',
+    lb_hint:'Торкніться, щоб збільшити · тягніть, щоб рухати'
   }
 };
 
@@ -803,15 +836,30 @@ function applyLang(){
 
 /* ============ MODAL & FORMS ============ */
 const modal = document.getElementById('modal');
+function serviceById(id){ return SERVICES.concat(EXTRAS).find(s=>s.id===id); }
+function updateModalPhoto(){
+  const sel = modal.querySelector('.js-service-select');
+  const s = serviceById(sel.value);
+  const box = document.getElementById('mPhoto'), img = document.getElementById('mPhotoImg');
+  if(s && s.img){
+    img.src = s.img; img.alt = txt(s.name);
+    box.style.display = 'block';
+    box.onclick = () => openLightbox(s.img, txt(s.name));
+  } else {
+    box.style.display = 'none'; box.onclick = null;
+  }
+}
 function openModal(id){
   modal.querySelector('.m-form').style.display='block';
   modal.querySelector('.m-success').style.display='none';
   if(id){const sel = modal.querySelector('.js-service-select'); sel.value = id;}
+  updateModalPhoto();
   modal.classList.add('open'); document.body.style.overflow='hidden';
 }
 function closeModal(){modal.classList.remove('open'); document.body.style.overflow='';}
 document.getElementById('modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+modal.querySelector('.js-service-select').addEventListener('change', updateModalPhoto);
 document.querySelectorAll('.js-modal-close').forEach(b=>b.addEventListener('click',closeModal));
 
 document.body.addEventListener('click',e=>{
@@ -884,10 +932,92 @@ function initBeforeAfter(){
   ba.addEventListener('pointercancel', stop);
 }
 
+/* ============ LIGHTBOX (zoom · pan · pinch) ============ */
+let openLightbox = () => {};
+function initLightbox(){
+  const lb = document.getElementById('lightbox'); if(!lb) return;
+  const stage = document.getElementById('lbStage'), img = document.getElementById('lbImg');
+  const MIN = 1, MAX = 4;
+  let scale = 1, tx = 0, ty = 0;
+  const pts = new Map();
+  let pinchDist = 0, pinchScale = 1, startTx = 0, startTy = 0, downX = 0, downY = 0, downTarget = null, downTime = 0;
+
+  const apply = () => {
+    img.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
+    stage.classList.toggle('zoomed', scale > 1.02);
+  };
+  const clampPan = () => {
+    const r = img.getBoundingClientRect(), sw = r.width, sh = r.height;
+    const maxX = Math.max(0, (sw - stage.clientWidth) / 2 + 1);
+    const maxY = Math.max(0, (sh - stage.clientHeight) / 2 + 1);
+    tx = Math.max(-maxX, Math.min(maxX, tx));
+    ty = Math.max(-maxY, Math.min(maxY, ty));
+  };
+  const reset = () => { scale = 1; tx = 0; ty = 0; img.style.transition = 'none'; apply(); };
+  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+
+  openLightbox = (src, alt) => {
+    img.src = src; img.alt = alt || '';
+    reset();
+    lb.classList.add('open'); document.body.style.overflow = 'hidden';
+  };
+
+  document.getElementById('lbClose').addEventListener('click', close);
+
+  lb.addEventListener('pointerdown', e => {
+    downTarget = e.target;
+    if (e.target.id === 'lbClose') return;
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    try { stage.setPointerCapture(e.pointerId); } catch(_){}
+    img.style.transition = 'none';
+    if (pts.size === 1) { downX = e.clientX; downY = e.clientY; startTx = tx; startTy = ty; downTime = Date.now(); }
+    else if (pts.size === 2) { const p = [...pts.values()]; pinchDist = Math.hypot(p[0].x-p[1].x, p[0].y-p[1].y); pinchScale = scale; }
+  });
+  lb.addEventListener('pointermove', e => {
+    if (!pts.has(e.pointerId)) return;
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const p = [...pts.values()];
+    if (pts.size === 2) {
+      const d = Math.hypot(p[0].x-p[1].x, p[0].y-p[1].y);
+      scale = Math.max(MIN, Math.min(MAX, pinchScale * d / pinchDist));
+      clampPan(); apply();
+    } else if (pts.size === 1 && scale > 1) {
+      tx = startTx + (e.clientX - downX); ty = startTy + (e.clientY - downY);
+      clampPan(); apply();
+    }
+  });
+  const up = e => {
+    const had = pts.size;
+    pts.delete(e.pointerId);
+    if (had === 1 && downTarget && downTarget.id !== 'lbClose') {
+      const moved = Math.hypot(e.clientX - downX, e.clientY - downY);
+      if (moved < 8 && Date.now() - downTime < 400) {
+        if (downTarget === img) {                   // tap on image → toggle zoom
+          img.style.transition = 'transform .22s ease';
+          if (scale > 1.02) { scale = 1; tx = 0; ty = 0; } else { scale = 2.4; }
+          clampPan(); apply();
+        } else { close(); }                          // tap on backdrop → close
+      }
+    }
+    if (pts.size === 1) { const q = [...pts.values()][0]; downX = q.x; downY = q.y; startTx = tx; startTy = ty; }
+  };
+  lb.addEventListener('pointerup', up);
+  lb.addEventListener('pointercancel', up);
+  lb.addEventListener('wheel', e => {
+    e.preventDefault();
+    img.style.transition = 'none';
+    scale = Math.max(MIN, Math.min(MAX, scale - Math.sign(e.deltaY) * 0.28));
+    if (scale === 1) { tx = 0; ty = 0; }
+    clampPan(); apply();
+  }, { passive: false });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
+}
+
 /* ============ INIT ============ */
 applyLang();
 initReveal();
 initBeforeAfter();
+initLightbox();
 </script>
 </body>
 </html>
