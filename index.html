@@ -218,15 +218,34 @@
   .svc-card:hover .svc-overlay{background:linear-gradient(to top,rgba(30,23,16,.95) 8%,rgba(30,23,16,.7) 40%,rgba(30,23,16,.35) 65%,rgba(30,23,16,.1) 85%,transparent)}
   .svc-name{font-family:'Cormorant Garamond';font-weight:600;font-size:1.55rem;line-height:1.1;color:#fff;letter-spacing:.4px}
   .svc-price{font-family:'Cormorant Garamond';font-weight:700;font-size:1.4rem;color:#E7C892;margin-top:6px}
+  .svc-dur{font-family:'Jost';font-weight:400;font-size:.78rem;color:rgba(255,253,249,.78);margin-left:8px;letter-spacing:.3px}
   .svc-reveal{max-height:0;opacity:0;overflow:hidden;transform:translateY(10px);transition:max-height .5s ease,opacity .4s ease,transform .5s ease}
-  .svc-card:hover .svc-reveal{max-height:260px;opacity:1;transform:none;margin-top:14px}
-  .svc-desc{font-size:.92rem;line-height:1.5;color:rgba(255,253,249,.92);margin-bottom:16px}
+  .svc-card:hover .svc-reveal{max-height:340px;opacity:1;transform:none;margin-top:12px}
+  .svc-desc{font-size:.87rem;line-height:1.45;color:rgba(255,253,249,.92);margin-bottom:14px}
   .svc-desc b{color:#E7C892;font-weight:500}
   .svc-reveal .btn{width:100%}
   /* touch devices: always show the description (no hover) */
   @media(hover:none){
-    .svc-reveal{max-height:260px;opacity:1;transform:none;margin-top:14px}
+    .svc-reveal{max-height:360px;opacity:1;transform:none;margin-top:12px}
     .svc-overlay{background:linear-gradient(to top,rgba(30,23,16,.95) 10%,rgba(30,23,16,.7) 45%,rgba(30,23,16,.3) 70%,transparent)}
+  }
+
+  /* ===== Auxiliary services list ===== */
+  .svc-extra{max-width:920px;margin:40px auto 0}
+  .se-title{text-align:center;font-family:'Cormorant Garamond';font-size:1.9rem;font-weight:600;color:var(--ink);margin-bottom:18px}
+  .svc-extra>div{background:var(--white);border:1px solid rgba(205,184,156,.5);border-radius:20px;padding:8px 8px;box-shadow:0 14px 40px -28px rgba(120,90,55,.5)}
+  .se-row{display:flex;align-items:center;gap:18px;padding:18px 24px;border-bottom:1px solid var(--sand)}
+  .se-row:last-child{border-bottom:none}
+  .se-main{flex:1;min-width:0}
+  .se-name{font-family:'Cormorant Garamond';font-size:1.3rem;font-weight:600;color:var(--ink);line-height:1.1}
+  .se-desc{font-size:.86rem;color:var(--muted);margin-top:4px;line-height:1.45}
+  .se-price{font-family:'Cormorant Garamond';font-weight:700;font-size:1.35rem;color:var(--gold-dark);white-space:nowrap}
+  .se-row .btn{flex-shrink:0}
+  .se-note{text-align:center;font-size:.82rem;color:var(--muted);font-style:italic;margin-top:18px;max-width:640px;margin-left:auto;margin-right:auto}
+  @media(max-width:620px){
+    .se-row{flex-wrap:wrap;gap:10px}
+    .se-main{flex-basis:100%}
+    .se-price{margin-left:auto}
   }
 
   /* ===== Reviews ===== */
@@ -463,6 +482,12 @@
     </div>
 
     <div class="svc-grid" id="priceGrid"></div>
+
+    <div class="svc-extra">
+      <h3 class="se-title" data-i18n="se_title">Zusätzliche Leistungen</h3>
+      <div id="extraList"></div>
+      <p class="se-note" data-i18n="se_note">Auffüllen ist nur möglich, wenn noch mindestens 40–50 % der Wimpernverlängerung vorhanden sind. Andernfalls wird eine Neuanlage berechnet.</p>
+    </div>
   </div>
 </section>
 
@@ -579,24 +604,32 @@
 <script>
 /* ============ DATA ============ */
 const SERVICES = [
-  {id:'klassik', img:'assets/1.jpeg', name:{de:'Klassik 1:1', ua:'Класика 1:1'}, price:'€ 89',
-   desc:{de:'für einen natürlichen, definierten Look — eine Extension pro Naturwimper.', ua:'для природного, виразного вигляду — одна вія на кожну натуральну.'}},
-  {id:'vol23', img:'assets/8.jpg', name:{de:'Volume 2D–3D', ua:'Об’єм 2D–3D'}, price:'€ 99',
-   desc:{de:'für mehr Fülle und einen sanften, dennoch dichteren Wimpernkranz.', ua:'для більшого об’єму та м’якого, але густішого ряду вій.'}},
-  {id:'vol45', img:'assets/5.jpeg', name:{de:'Volume 4D–5D', ua:'Об’єм 4D–5D'}, price:'€ 109',
-   desc:{de:'für einen ausdrucksstarken, vollen Look mit viel Tiefe.', ua:'для виразного, насиченого вигляду з глибиною.'}},
-  {id:'mega', img:'assets/2.jpg', name:{de:'Mega Volume', ua:'Mega Volume'}, price:'€ 129',
-   desc:{de:'für maximale Dichte und einen glamourösen, intensiven Blick.', ua:'для максимальної густоти та гламурного, інтенсивного погляду.'}},
-  {id:'wispy', img:'assets/3.jpg', name:{de:'Wet & Wispy Look', ua:'Wet & Wispy Look'}, price:'€ 109',
-   desc:{de:'für den angesagten Wet- bzw. Wispy-Look mit feinen Strähnchen-Akzenten.', ua:'для модного Wet/Wispy-ефекту з тонкими акцентами-пасмами.'}},
-  {id:'refill', img:'assets/4.jpg', name:{de:'Auffüllen / Refill', ua:'Корекція / Refill'}, price:{de:'ab € 49', ua:'від € 49'},
-   desc:{de:'Auffüllen nach 2–3 Wochen, um Ihren Look frisch und voll zu halten.', ua:'корекція через 2–3 тижні, щоб образ лишався свіжим і густим.'}},
-  {id:'lashlift', img:'assets/7.jpg', name:{de:'Wimpernlifting & Färben', ua:'Ламінування та фарбування вій'}, price:'€ 65',
-   desc:{de:'für geschwungene, getönte Naturwimpern — ganz ohne Extensions.', ua:'для підкручених, затонованих натуральних вій — без нарощування.'}},
-  {id:'browlift', img:'assets/6.jpg', name:{de:'Browlifting & Styling', ua:'Ламінування та стайлінг брів'}, price:'€ 55',
-   desc:{de:'für gepflegte, in Form gelegte Augenbrauen mit vollem, natürlichem Look.', ua:'для доглянутих, укладених брів із густим, природним виглядом.'}},
-  {id:'browtint', img:'assets/9.jpeg', name:{de:'Augenbrauen färben', ua:'Фарбування брів'}, price:'€ 20',
-   desc:{de:'für definierte, harmonisch betonte Augenbrauen.', ua:'для чітких, гармонійно підкреслених брів.'}}
+  {id:'klassik', img:'assets/1.jpeg', name:{de:'Klassik 1:1', ua:'Класика 1:1'}, price:'€ 45', dur:{de:'1,5 Std.', ua:'1,5 год'},
+   desc:{de:'Neuanlage. Für einen natürlichen, eleganten Look wird auf jede Naturwimper eine einzelne Wimper appliziert — mehr Länge, Definition und ein ausdrucksstarker Blick, ganz ohne künstlich zu wirken.', ua:'Нове нарощування. Для природного, елегантного вигляду на кожну натуральну вію кріпиться одна штучна — більше довжини, виразності й доглянутий погляд, зовсім без штучності.'}},
+  {id:'light', img:'assets/8.jpg', name:{de:'Light Volume 2–3D', ua:'Light Volume 2–3D'}, price:'€ 60', dur:{de:'2 Std.', ua:'2 год'},
+   desc:{de:'Neuanlage. Auf jede Naturwimper werden 2–3 ultrafeine Wimpern appliziert — ein weicher, luftiger Effekt mit mehr Fülle und Ausdruck, ohne die Naturwimpern zu beschweren.', ua:'Нове нарощування. На кожну натуральну вію кріпиться 2–3 ультратонкі — м’який, повітряний ефект із більшим об’ємом, не обтяжуючи власні вії.'}},
+  {id:'soft', img:'assets/5.jpeg', name:{de:'Soft Volume 4–5D', ua:'Soft Volume 4–5D'}, price:'€ 70', dur:{de:'2 Std.', ua:'2 год'},
+   desc:{de:'Neuanlage. Für einen intensiveren, dennoch eleganten Look werden 4–5 feine Wimpern pro Naturwimper appliziert — ideal für mehr Volumen, Dichte und einen ausdrucksstarken Augenaufschlag.', ua:'Нове нарощування. Для інтенсивнішого, але елегантного вигляду — 4–5 тонких вій на кожну натуральну. Ідеально для більшого об’єму, густоти й виразного погляду.'}},
+  {id:'mega', img:'assets/2.jpg', name:{de:'Mega Volume 6D+', ua:'Mega Volume 6D+'}, price:'€ 75', dur:{de:'2 Std.', ua:'2 год'},
+   desc:{de:'Neuanlage. Für maximale Fülle und einen glamourösen Effekt werden mehrere ultrafeine Wimpern zu einem Fächer geformt — perfekt für ein besonders dichtes, intensives Volumen.', ua:'Нове нарощування. Для максимальної густоти й гламурного ефекту кілька ультратонких вій формують у пучок — ідеально для дуже насиченого, інтенсивного об’єму.'}},
+  {id:'wet', img:'assets/3.jpg', name:{de:'Wet Look', ua:'Wet Look'}, price:'€ 70', dur:{de:'2 Std.', ua:'2 год'},
+   desc:{de:'Der Wet Look sorgt für einen modernen, definierten Augenaufschlag. Speziell geformte Fächer erzeugen den beliebten Mascara-Effekt mit feinen, geschlossenen Spitzen — elegant, stilvoll und dennoch leicht.', ua:'Wet Look створює сучасний, виразний погляд. Спеціально сформовані пучки дають улюблений ефект туші з тонкими, зімкненими кінчиками — елегантно, стильно й водночас легко.'}},
+  {id:'lashlift', img:'assets/7.jpg', name:{de:'Lash Lifting', ua:'Ламінування вій'}, price:'€ 40', dur:{de:'1 Std.', ua:'1 год'},
+   desc:{de:'Die natürlichen Wimpern werden sanft angehoben und dauerhaft geschwungen — optisch längere, offene und gepflegte Wimpern, ganz ohne Extensions oder Mascara.', ua:'Натуральні вії делікатно піднімаються й надовго підкручуються — візуально довші, відкриті й доглянуті вії, зовсім без нарощування чи туші.'}},
+  {id:'browlift', img:'assets/6.jpg', name:{de:'Brow Lifting', ua:'Ламінування брів'}, price:'€ 40', dur:{de:'', ua:''},
+   desc:{de:'Inkl. Zupfen & Färben. Die Augenbrauen werden in Form gebracht und dauerhaft fixiert — für einen volleren, gepflegten und perfekt gestylten, natürlichen Look.', ua:'Включно з корекцією та фарбуванням. Брови формуються й надовго фіксуються — густіші, доглянуті та ідеально укладені, з природним виглядом.'}},
+  {id:'browtint', img:'assets/9.jpeg', name:{de:'Augenbrauen färben', ua:'Фарбування брів'}, price:'€ 10', dur:{de:'', ua:''},
+   desc:{de:'Professionelles Färben lässt die Augenbrauen voller und definierter wirken. Die Farbe wird individuell an Haarton und Hauttyp angepasst — für ein natürliches, harmonisches Ergebnis.', ua:'Професійне фарбування робить брови густішими й виразнішими. Колір індивідуально підбирається під тон волосся та шкіри — природний, гармонійний результат.'}}
+];
+const EXTRAS = [
+  {id:'zupfen', name:{de:'Augenbrauen zupfen', ua:'Корекція форми брів'}, price:'€ 5',
+   desc:{de:'Präzises Formen der Augenbrauen für eine saubere, harmonische Kontur — individuell an Ihre Gesichtsform angepasst.', ua:'Точне формування брів для чистого, гармонійного контуру — індивідуально під форму обличчя.'}},
+  {id:'fill1', name:{de:'Auffüllen nach 1 Woche', ua:'Корекція через 1 тиждень'}, price:'€ 30',
+   desc:{de:'Zur Auffrischung der Wimpernverlängerung innerhalb einer Woche — für ein dauerhaft gepflegtes, volles Ergebnis.', ua:'Оновлення нарощування протягом тижня — для стабільно доглянутого, густого результату.'}},
+  {id:'fill2', name:{de:'Auffüllen nach 2 Wochen', ua:'Корекція через 2 тижні'}, price:'€ 55',
+   desc:{de:'Auffüllen der herausgewachsenen Wimpern nach zwei Wochen, um Volumen und Form zu erhalten.', ua:'Заповнення відрослих вій через два тижні, щоб зберегти об’єм і форму.'}},
+  {id:'fill3', name:{de:'Auffüllen nach 3 Wochen', ua:'Корекція через 3 тижні'}, price:'€ 65',
+   desc:{de:'Professionelles Auffüllen nach drei Wochen für einen gleichmäßigen, gepflegten und langanhaltenden Look.', ua:'Професійна корекція через три тижні для рівномірного, доглянутого й стійкого вигляду.'}}
 ];
 
 const REVIEWS = [
@@ -643,6 +676,7 @@ const I18N = {
     adv1:'Jahre Erfahrung mit Wimpern & Brauen',adv2:'zufriedene Kundinnen',adv3:'Hygiene & hochwertige Materialien',adv4:'Zertifikate & Fortbildungen',
     price_eyebrow:'Preisliste',price_title:'Meine Behandlungen',price_lead:'Transparente Preise. Jede Behandlung wird individuell auf Ihre Augenform und Ihren gewünschten Look abgestimmt.',
     for_label:'Für wen:',book_btn:'Termin buchen',
+    se_title:'Zusätzliche Leistungen',se_note:'Auffüllen ist nur möglich, wenn noch mindestens 40–50 % der Wimpernverlängerung vorhanden sind. Andernfalls wird eine Neuanlage berechnet.',
     proc1_name:'Powder Brows',proc1_for:'für alle, die volle, natürlich schattierte Augenbrauen ohne tägliches Nachzeichnen möchten.',
     proc2_name:'Aquarell Lippen',proc2_for:'für blasse oder konturlose Lippen — sanfte Farbe und Frische ganz ohne Lippenstift.',
     proc3_name:'Eyeliner / Wimpernkranz',proc3_for:'für einen ausdrucksstarken, wachen Blick — dezent verdichtet oder als feiner Lidstrich.',
@@ -674,6 +708,7 @@ const I18N = {
     adv1:'років досвіду з віями та бровами',adv2:'задоволених клієнток',adv3:'гігієна та якісні матеріали',adv4:'сертифікатів і курсів підвищення',
     price_eyebrow:'Прайс-лист',price_title:'Мої процедури',price_lead:'Прозорі ціни. Кожна процедура індивідуально підбирається під форму ваших очей і бажаний образ.',
     for_label:'Для кого:',book_btn:'Записатися',
+    se_title:'Додаткові послуги',se_note:'Корекція можлива лише за наявності щонайменше 40–50 % нарощених вій. Інакше розраховується як нове нарощування.',
     proc1_name:'Пудрові брови',proc1_for:'для всіх, хто хоче густі, природно затушовані брови без щоденного підмальовування.',
     proc2_name:'Акварельні губи',proc2_for:'для блідих або без контуру губ — ніжний колір і свіжість зовсім без помади.',
     proc3_name:'Стрілки / Міжвійковий простір',proc3_for:'для виразного, відкритого погляду — делікатне заповнення або тонка стрілка.',
@@ -695,18 +730,33 @@ const txt = v => typeof v === 'object' ? (v[LANG] || v.de) : v;
 /* ============ BUILD DYNAMIC CONTENT ============ */
 function renderPricing(){
   const fallback='linear-gradient(135deg,var(--taupe),var(--sand))';
-  document.getElementById('priceGrid').innerHTML = SERVICES.map(s=>`
+  document.getElementById('priceGrid').innerHTML = SERVICES.map(s=>{
+    const d = txt(s.dur);
+    return `
     <article class="svc-card">
       ${s.img?`<img class="svc-img" src="${s.img}" alt="${txt(s.name)}" loading="lazy">`:`<div class="svc-img" style="background:${fallback}"></div>`}
       <div class="svc-overlay">
         <h3 class="svc-name">${txt(s.name)}</h3>
-        <div class="svc-price">${txt(s.price)}</div>
+        <div class="svc-price">${txt(s.price)}${d?`<span class="svc-dur">· ${d}</span>`:''}</div>
         <div class="svc-reveal">
-          <p class="svc-desc"><b>${I18N[LANG].for_label}</b> ${txt(s.desc)}</p>
+          <p class="svc-desc">${txt(s.desc)}</p>
           <button class="btn btn-sm js-book" data-id="${s.id}">${I18N[LANG].book_btn}</button>
         </div>
       </div>
-    </article>`).join('');
+    </article>`;
+  }).join('');
+}
+function renderExtras(){
+  const box=document.getElementById('extraList'); if(!box) return;
+  box.innerHTML = EXTRAS.map(s=>`
+    <div class="se-row">
+      <div class="se-main">
+        <div class="se-name">${txt(s.name)}</div>
+        <div class="se-desc">${txt(s.desc)}</div>
+      </div>
+      <div class="se-price">${txt(s.price)}</div>
+      <button class="btn btn-sm js-book" data-id="${s.id}">${I18N[LANG].book_btn}</button>
+    </div>`).join('');
 }
 function buildReviews(){
   const cards = REVIEWS.map(r=>`
@@ -735,7 +785,7 @@ function buildFaq(){
   });
 }
 function buildServiceSelects(){
-  const opts = SERVICES.map(s=>`<option value="${s.id}">${txt(s.name)} — ${txt(s.price)}</option>`).join('');
+  const opts = SERVICES.concat(EXTRAS).map(s=>`<option value="${s.id}">${txt(s.name)} — ${txt(s.price)}</option>`).join('');
   document.querySelectorAll('.js-service-select').forEach(sel=>{const v=sel.value;sel.innerHTML=opts;if(v)sel.value=v;});
 }
 
@@ -748,7 +798,7 @@ function applyLang(){
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
     const k = el.getAttribute('data-i18n-ph'); if(I18N[LANG][k]!==undefined) el.placeholder = I18N[LANG][k];
   });
-  renderPricing(); buildReviews(); buildFaq(); buildServiceSelects();
+  renderPricing(); renderExtras(); buildReviews(); buildFaq(); buildServiceSelects();
 }
 
 /* ============ MODAL & FORMS ============ */
